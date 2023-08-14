@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, use } from "react"
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./Scene";
 import { Text } from "@react-three/drei";
@@ -9,6 +9,17 @@ export default function Home() {
   const [opacity, setOpacity] = useState(1)
   const [zoom, setZoom] = useState(1)
   const [velocity, setVelocity] = useState(0)
+  const [width, setWidth] = useState(false);
+
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    updateWidth();
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -26,11 +37,6 @@ export default function Home() {
 
   return (
     <div>
-      {/* <main className="flex h-screen flex-col items-center justify-center">
-        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-full after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-          <p style={{opacity: opacity, zoom: zoom}} className='select-none fixed right-1/2 w-screen translate-x-1/2 text-center m-0 p-0 text-7xl'>Let&apos;s make something great.</p>
-        </div>
-      </main> */}
       <div className="fixed w-screen h-screen" >
         <Canvas
         camera={{
@@ -40,12 +46,15 @@ export default function Home() {
           // position: [15, 5, 5],
         }}
         >
+        { width &&
           <Text
+          fontSize={width/1000}
           scale={zoom}
           fillOpacity={opacity > 0 ? opacity : 0}
           >
             Let&apos;s make something great.
           </Text>
+          }
           <Scene velocity={velocity} />
         </Canvas>
       </div>
