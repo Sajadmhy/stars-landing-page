@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect, use } from "react"
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./Scene";
-import { Text } from "@react-three/drei";
+import { Html, Text } from "@react-three/drei";
 
 export default function Home() {
   const [scroll, setScroll] = useState(0)
@@ -35,6 +35,27 @@ export default function Home() {
     }
   }, [scroll])
 
+  // when reached the end of the page redirect to the next page
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handleScroll = () => {
+      if (window.scrollY > 800 && width > 800 ) {
+        setTimeout(() => {
+          window.location.replace("https://sajadm.me")
+        }, 1000)
+      } else if (window.scrollY > 600 && width < 800 ) {
+        setTimeout(() => {
+          window.location.replace("https://sajadm.me")
+        }, 1000)
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [scroll])
+
+
   return (
     <div>
       <div className="fixed w-screen h-screen" >
@@ -55,6 +76,20 @@ export default function Home() {
             Let&apos;s make something great.
           </Text>
           }
+          <Html transform={[0,0,0]}>
+            <div>
+              <div style={{opacity: opacity}} className="mouse_scroll">
+                <div className="mouse">
+                  <div className="wheel"></div>
+                </div>
+                <div>
+                  <span className="m_scroll_arrows unu"></span>
+                  <span className="m_scroll_arrows doi"></span>
+                  <span className="m_scroll_arrows trei"></span>
+                </div>
+              </div>
+            </div>
+          </Html>
           <Scene velocity={velocity} />
         </Canvas>
       </div>

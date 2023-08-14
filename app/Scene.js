@@ -84,7 +84,7 @@ export const Scene = ({velocity}) => {
 
   return (
     <>
-      <color args={["#000"]} attach="background" />
+      <color args={["#0E1525"]} attach="background" />
       <instancedMesh
         ref={meshRef}
         args={[undefined, undefined, COUNT]}
