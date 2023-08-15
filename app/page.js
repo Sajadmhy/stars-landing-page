@@ -55,7 +55,7 @@ export default function Home() {
         >
           <Html transform={[0,0,0]}>
             <div>
-              <p style={{opacity: opacity, scale: zoom}} className="lg:text-5xl md:text-2xl w-screen text-center">Let&apos;s make something great.</p>
+              <p style={{opacity: opacity, scale: zoom}} className="text-white lg:text-5xl md:text-2xl w-screen text-center">Let&apos;s make something great.</p>
               <div style={{opacity: opacity}} className="mouse_scroll">
                 <div className="mouse">
                   <div className="wheel"></div>
