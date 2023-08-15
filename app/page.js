@@ -9,17 +9,6 @@ export default function Home() {
   const [opacity, setOpacity] = useState(1)
   const [zoom, setZoom] = useState(1)
   const [velocity, setVelocity] = useState(0)
-  const [width, setWidth] = useState(false);
-
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    updateWidth();
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -39,14 +28,11 @@ export default function Home() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handleScroll = () => {
-      if (window.scrollY > 800 && width > 800 ) {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
         setTimeout(() => {
           window.location.replace("https://sajadm.me")
-        }, 1000)
-      } else if (window.scrollY > 600 && width < 800 ) {
-        setTimeout(() => {
-          window.location.replace("https://sajadm.me")
-        }, 1000)
+        }, 1500)
       }
     }
     window.addEventListener("scroll", handleScroll)
@@ -67,17 +53,9 @@ export default function Home() {
           // position: [15, 5, 5],
         }}
         >
-        { width &&
-          <Text
-          fontSize={width/1000}
-          scale={zoom}
-          fillOpacity={opacity > 0 ? opacity : 0}
-          >
-            Let&apos;s make something great.
-          </Text>
-          }
           <Html transform={[0,0,0]}>
             <div>
+              <p style={{opacity: opacity, scale: zoom}} className="lg:text-5xl md:text-2xl w-screen text-center">Let&apos;s make something great.</p>
               <div style={{opacity: opacity}} className="mouse_scroll">
                 <div className="mouse">
                   <div className="wheel"></div>
