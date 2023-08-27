@@ -31,8 +31,8 @@ export default function Home() {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
       if (scrollTop + clientHeight >= scrollHeight) {
         setTimeout(() => {
-          window.location.replace("https://sajadm.me")
-        }, 1500)
+          window.location.replace("https://sajad.dev")
+        }, 1000)
       }
     }
     window.addEventListener("scroll", handleScroll)
